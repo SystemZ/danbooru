@@ -40,12 +40,6 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ github.token }}
 
-      - name: Login to DockerHub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
       # Generate Docker tags from Git tags.
       # https://github.com/docker/metadata-action
       - name: Generate Docker tags
@@ -53,8 +47,7 @@ jobs:
         id: metadata
         with:
           images: |
-            docker.io/evazion/danbooru
-            ghcr.io/danbooru/danbooru
+            ghcr.io/systemz/danbooru
           tags: |
             type=sha,format=long,prefix=
             type=ref,event=branch
@@ -75,8 +68,8 @@ jobs:
 
           # https://github.com/docker/build-push-action/blob/master/docs/advanced/cache.md#registry-cache
           # https://dev.to/pst418/speed-up-multi-stage-docker-builds-in-ci-cd-with-buildkit-s-registry-cache-11gi
-          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:buildcache
-          cache-to: type=registry,ref=ghcr.io/${{ github.repository }}:buildcache,mode=max
+          cache-from: type=registry,ref=ghcr.io/systemz/danbooru:buildcache
+          cache-to: type=registry,ref=ghcr.io/systemz/danbooru:buildcache,mode=max
 
           build-args: |
             SOURCE_COMMIT=${{ github.sha }}
