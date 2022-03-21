@@ -68,8 +68,8 @@ jobs:
 
           # https://github.com/docker/build-push-action/blob/master/docs/advanced/cache.md#registry-cache
           # https://dev.to/pst418/speed-up-multi-stage-docker-builds-in-ci-cd-with-buildkit-s-registry-cache-11gi
-          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:buildcache
-          cache-to: type=registry,ref=ghcr.io/${{ github.repository }}:buildcache,mode=max
+          cache-from: type=registry,ref=ghcr.io/systemz/danbooru:buildcache
+          cache-to: type=registry,ref=ghcr.io/systemz/danbooru:buildcache,mode=max
 
           build-args: |
             SOURCE_COMMIT=${{ github.sha }}
